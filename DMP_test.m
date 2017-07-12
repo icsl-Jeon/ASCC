@@ -9,3 +9,5 @@ hold on
 start_step=10;
 [x_repro,xdot_repro]=DMP_repro(w,Mu_s,Sigma_s,start_step,obs_path(10,:)'+[2 2 2]',obs_path(1,:)',obs_path(end,:)');
 plot3(x_repro(1,start_step:end),x_repro(2,start_step:end),x_repro(3,start_step:end))
+
+disp('change')
