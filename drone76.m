@@ -18,7 +18,7 @@ nbDatab=200; nbVarb=3; alphab=1;  nbStatesb=12; Kb=200; Db=20;
 % simulink parameters  
 % 200 step=> 20s
 global t_scale
-t_scale=1/10;
+t_scale=20/200;
 
 
 
@@ -39,30 +39,34 @@ lambda=40;
 %% Body path & obstacle defined 
 % straiht line 
 % 
-xb(1,:)=linspace(25,-25,nbDatab);
-xb(2,:)=zeros(1,nbDatab);
+% xb(1,:)=linspace(25,-25,nbDatab);
+% xb(2,:)=zeros(1,nbDatab);
+% xb(3,:)=5*ones(1,nbDatab);
+
+% C -curve
+
+th=linspace(-pi,0,nbDatab);
+for i=1:nbDatab
+xb(1,i)=30*cos(th(i));
+xb(2,i)=30*sin(th(i));
+end
+
 xb(3,:)=5*ones(1,nbDatab);
 
-% % C -curve
-% 
-% th=linspace(-pi,0,nbDatab);
-% for i=1:nbDatab
-% xb(1,i)=25*cos(th(i));
-% xb(2,i)=25*sin(th(i));
-% end
-% 
-% xb(3,:)=5*ones(1,nbDatab);
-% 
-% % ¿Ï¸¸ÇÑ °î¼± 
-% xb(2,:)=xb(2,:)/2;
+% ¿Ï¸¸ÇÑ °î¼± 
+xb(2,:)=xb(2,:)/3;
 
 %% obstacle generation 
 global obs1_path 
 
 %straight line - moving case 
-waypoint1=xb(:,nbDatab/2)'+[0 0 -3];
+% waypoint1=xb(:,nbDatab/2)'+[0 0 -3];
+% 
+% obs1_path=[repmat(waypoint1(1),200,1)  [linspace(-10,0,125)  linspace(0.03,10,75)]'  repmat(waypoint1(1),200,1)]; 
 
-obs1_path=[repmat(waypoint1(1),200,1)  [linspace(-10,0,125)  linspace(0.03,10,75)]'  repmat(waypoint1(1),200,1)]; 
+%C curve - static case 
+waypoint1=xb(:,nbDatab/2)'+[0 1 -3];
+obs1_path=repmat(waypoint1,200,1);
 
 
 %%
@@ -169,8 +173,8 @@ title('link motion')
 plot3(xl_repro(1,:),xl_repro(2,:),xl_repro(3,:),'k')
 hold on
 arms_flat0{end}.plot(qin(qs),'jointdiam',0.25,'jointcolor',[0.5 0.5 1],'tilesize',5,'nobase','noname','nowrist')
-
-
+%%
+sim_with_no_dynamics
 
 %% slimulink here 
 % data export
@@ -191,9 +195,10 @@ run('simulink_pd.mdl')
 
 %% data import from simulink 
 
-rpy=interp1(output1(:,end)*10,output1(:,4:6),1:nbDatab);
-xyz=interp1(output1(:,end)*10,output1(:,1:3),1:nbDatab);
-q=interp1(output1(:,end)*10,output1(:,13:17),1:nbDatab);
+rpy=interp1(output1(:,end)/t_scale,output1(:,4:6),1:nbDatab);
+xyz=interp1(output1(:,end)/t_scale,output1(:,1:3),1:nbDatab);
+q=interp1(output1(:,end)/t_scale,output1(:,13:17),1:nbDatab);
+
 
 
 %%
@@ -212,7 +217,7 @@ for t=1:nbDatab
 
 %     quiver3(x0(1),x0(2),x0(3),x0dot(1),x0dot(2),x0dot(3),'b')
 %     
-    draw_sphere(obs1,po/1.5)
+    draw_sphere(obs1,po)
 
 
     [arms,arms_flat]=Make_arm(LinkLength,R);

@@ -68,17 +68,18 @@ phi_ref = convert(2);
 % end
 
 
+% % Gain 7_14
+% kp_phi = 30;    kd_phi = 10;
+% kp_theta = 30;  kd_theta = 10;
+% kp_psi = 3;    kd_psi = 2.5;
+% kp_z = 5;      kd_z = 3;    KI_z = 3; 
+
 % Gain
-kp_phi = 30;    kd_phi = 10;
-kp_theta = 30;  kd_theta = 10;
+kp_phi = 30;    kd_phi = 20;
+kp_theta = 30;  kd_theta = 20;
 kp_psi = 3;    kd_psi = 2.5;
-kp_z = 4;      kd_z = 2;    KI_z = 1.2; 
+kp_z = 5;      kd_z = 3;    KI_z = 3; 
 
-
-% kp_phi = 120;    kd_phi = 90;
-% kp_theta = 90;  kd_theta = 40;
-% kp_psi = 20;    kd_psi = 10;
-% kp_z = 4;      kd_z = 2;    KI_z = 0.05; 
 
 
 % global I_ze;
