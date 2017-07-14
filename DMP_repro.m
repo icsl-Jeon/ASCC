@@ -31,6 +31,7 @@ rWLS(nb).F(:,n) = w * rWLS(nb).H(:,n)*s;
 
 
 rWLS(nb).currAcc = currF0 + K*rWLS(nb).F(:,n);
+
 if ispotential
 rWLS(nb).currAcc=rWLS(nb).currAcc+Calc_Psi_obsinput(obs1_path(n,:),rWLS(nb).currPos,rWLS(nb).currVel)+Calc_Psi_obsinput(obs2,rWLS(nb).currPos,rWLS(nb).currVel); 
 end
