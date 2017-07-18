@@ -117,12 +117,12 @@ function animate(robot, qq)
                     vert = [vert; T.t'];
                 end
                 
-                % now draw the shadow
-                if isfield(h, 'shadow')
-                    set(h.shadow, 'Xdata', vert(:,1), 'Ydata', vert(:,2), ...
-                        'Zdata', h.floorlevel*ones(size(vert(:,1))));
-                end
-                
+%                 % now draw the shadow
+%                 if isfield(h, 'shadow')
+%                     set(h.shadow, 'Xdata', vert(:,1), 'Ydata', vert(:,2), ...
+%                         'Zdata', h.floorlevel*ones(size(vert(:,1))));
+%                 end
+%                 
                 % update the tool tip trail
                 if isfield(h, 'trail')
                     T = robot.fkine(q);

@@ -223,9 +223,15 @@ for t=1:nbDatab
     [arms,arms_flat]=Make_arm(LinkLength,R);
     
 
-    arms_flat{end}.plot(qin([0 q(t,2:5)]),'nojoints','tilesize',10,'nobase','noname',...
+%     arms_flat{end}.plot(qin([0 q(t,2:5)]),'nojoints','tilesize',10,'nobase','noname',...
+%    'workspace',axs,'nowrist','fps',100,'linkcolor','k','view',[-70 40],'workspace',[-50 50 -50 50 -25 25])    
+%     
+    
+    arms_flat{end}.plot(qin([0 q(t,2:5)]),'nojoints','notiles','nobase','noname',...
    'workspace',axs,'nowrist','fps',100,'linkcolor','k','view',[-70 40],'workspace',[-50 50 -50 50 -25 25])    
     
+
+
     hold off
 
 end

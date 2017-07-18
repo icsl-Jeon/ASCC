@@ -237,7 +237,7 @@ function plot(robot, qq, varargin)
                 % create the robot and floor
                 newplot();
 
-                RTBPlot.create_floor(opt);
+%                 RTBPlot.create_floor(opt);
 
                 handle = create_robot(robot, opt);
                 set(gca, 'Tag', 'RTB.plot');
@@ -247,7 +247,7 @@ function plot(robot, qq, varargin)
         
     else
         % this axis never had a robot drawn in it before, let's use it
-        RTBPlot.create_floor(opt);
+%         RTBPlot.create_floor(opt);
         handle = create_robot(robot, opt);
         set(gca, 'Tag', 'RTB.plot');
         set(gcf, 'Units', 'Normalized');
@@ -255,6 +255,11 @@ function plot(robot, qq, varargin)
 %         if strcmp( get(gcf, 'WindowStyle'), 'docked') == 0
 %             set(gcf, 'Position', [0.1 1-pf(4) pf(3) pf(4)]);
 %         end
+        
+                   
+
+        
+        
     end
     
     % deal with a few options that need to be stashed in the SerialLink object
@@ -476,16 +481,16 @@ function h = create_robot(robot, opt)
     end
     
     % display a shadow on the floor
-    if opt.shadow
-        % create the polyline which is the shadow on the floor
-        h.shadow = line('LineWidth', opt.shadowwidth, 'Color', opt.shadowcolor);
-    end
+%     if opt.shadow
+%         % create the polyline which is the shadow on the floor
+%         h.shadow = line('LineWidth', opt.shadowwidth, 'Color', opt.shadowcolor);
+%     end
     
-    if opt.trail
-        h.trail = plot(0, 0, opt.trail);
-        robot.trail = [];
-    end
-    
+%     if opt.trail
+%         h.trail = plot(0, 0, opt.trail);
+%         robot.trail = [];
+%     end
+%     
     % deal with some display options
     if opt.shading
         lighting gouraud
