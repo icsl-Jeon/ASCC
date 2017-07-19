@@ -208,7 +208,6 @@ x0dots=interp1(output1(:,end)/t_scale,x0_x0dot.Data(:,4:6),1:nbDatab);
 figure()
 t_last=120;
 pot_length=5;
-axs=[-50 50 -50 50 -25 25]*0.75;
 for t=1:nbDatab
 %     plot3(xb_repro(1,:),xb_repro(2,:),xb_repro(3,:))
     plot3(xyz(1:t,1),xyz(1:t,2),xyz(1:t,3),'k')
@@ -225,9 +224,8 @@ for t=1:nbDatab
     
     
     if t>90 && t<t_last
-        quiver3(x0(1),x0(2),x0(3),x0dot(1)/norm(x0dot)*pot_length,...
-            x0dot(2)/norm(x0dot)*pot_length,x0dot(3)/norm(x0dot)*pot_length,'r',...
-            'LineWidth',3,'MaxHeadSize',3);
+        q=quiver3(x0(1),x0(2),x0(3),x0dot(1)/norm(x0dot)*pot_length,...
+            x0dot(2)/norm(x0dot)*pot_length,x0dot(3)/norm(x0dot)*pot_length,'r')
         plot3(x0s(90:t,1),x0s(90:t,2),x0s(90:t,3),'b*')
     elseif t>=t_last
          plot3(x0s(90:t_last,1),x0s(90:t_last,2),x0s(90:t_last,3),'b*')
@@ -236,7 +234,7 @@ for t=1:nbDatab
     
     
 
-    axis(axs)
+    axis([-50 50 -50 50 -25 25])
 
     
      
@@ -253,7 +251,7 @@ for t=1:nbDatab
 %     
     
     arms_flat{end}.plot(qin([0 q(t,2:5)]),'nojoints','notiles','nobase','noname',...
-   'workspace',axs,'nowrist','fps',100,'linkcolor','k','view',[-70 40],'workspace',axs)    
+   'workspace',axs,'nowrist','fps',100,'linkcolor','k','view',[-70 40],'workspace',[-50 50 -50 50 -25 25])    
     
 
 

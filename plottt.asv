@@ -4,7 +4,7 @@ figure()
 
 for i=1:3
     subplot(3,1,i)
-    xlabel('number of data')
+    xlabel('number of Data')
     tit=strcat('q',num2str(i));
     ylabel(tit)
     plot(1:200,q_sim(:,i+1))
@@ -17,16 +17,6 @@ end
 gtext('number of data')
 
 
-
-figure
-
-plot(1:200,yaw,'b')
-hold on
-plot(1:200,q_sim(:,1),'k')
-plot(1:200,rpy(:,3),'r')
-xlabel('time step')
-ylabel('angle [rad]')
-legend('\psi_{0}','q_{0}','\psi','Location','best')
 
 
 
