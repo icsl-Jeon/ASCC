@@ -198,7 +198,8 @@ run('simulink_pd.mdl')
 rpy=interp1(output1(:,end)/t_scale,output1(:,4:6),1:nbDatab);
 xyz=interp1(output1(:,end)/t_scale,output1(:,1:3),1:nbDatab);
 q=interp1(output1(:,end)/t_scale,output1(:,13:17),1:nbDatab);
-
+x0s=x0_x0dot.Data(:,1:3); 
+x0dots=x0_x0dot.Data(:,4:6);
 
 
 %%
@@ -219,6 +220,8 @@ for t=1:nbDatab
 %     
     draw_sphere(obs1,po)
 
+    
+    
 
     [arms,arms_flat]=Make_arm(LinkLength,R);
     

@@ -1,6 +1,6 @@
 function out=link_dynamics(in)
 % input = xyz / rpy / q_cur / obs / qdot_DMP / xdotl_repro
-% output = qdot
+% output = qdot / x0 / x0dot 
 
 % robot parameters 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -142,7 +142,7 @@ J01=J01(:,[1 3 4 5]);
     
     
     
-out=qdot;
+out=[reshape(qdot,1,length(qdot)) reshape(x0,1,3) reshape(x0dot1,1,3)];
 end
 
 
