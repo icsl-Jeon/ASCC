@@ -11,10 +11,10 @@ for i=1:3
     hold on
     plot(1:3:200,qs(1:3:200,i+2),'k.')
     hold off
-    legend('acheieved trajectory','learned joint trajectory')
+    legend('q(t)','q_{d}(t)','Location','best')
     gtext(tit)
 end
-gtext('number of data')
+gtext('time step')
 
 
 

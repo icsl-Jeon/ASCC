@@ -38,35 +38,35 @@ lambda=40;
 [arms0,arms_flat0]=Make_arm(LinkLength,SE3(eye(4)));
 %% Body path & obstacle defined 
 % straiht line 
-% 
-% xb(1,:)=linspace(25,-25,nbDatab);
-% xb(2,:)=zeros(1,nbDatab);
-% xb(3,:)=5*ones(1,nbDatab);
+
+xb(1,:)=linspace(25,-25,nbDatab);
+xb(2,:)=zeros(1,nbDatab);
+xb(3,:)=5*ones(1,nbDatab);
 
 % C -curve
 
-th=linspace(-pi,0,nbDatab);
-for i=1:nbDatab
-xb(1,i)=30*cos(th(i));
-xb(2,i)=30*sin(th(i));
-end
-
-xb(3,:)=5*ones(1,nbDatab);
-
-% ¿Ï¸¸ÇÑ °î¼± 
-xb(2,:)=xb(2,:)/3;
+% th=linspace(-pi,0,nbDatab);
+% for i=1:nbDatab
+% xb(1,i)=30*cos(th(i));
+% xb(2,i)=30*sin(th(i));
+% end
+% 
+% xb(3,:)=5*ones(1,nbDatab);
+% 
+% % ¿Ï¸¸ÇÑ °î¼± 
+% xb(2,:)=xb(2,:)/3;
 
 %% obstacle generation 
 global obs1_path 
 
 %straight line - moving case 
-% waypoint1=xb(:,nbDatab/2)'+[0 0 -3];
-% 
-% obs1_path=[repmat(waypoint1(1),200,1)  [linspace(-10,0,125)  linspace(0.03,10,75)]'  repmat(waypoint1(1),200,1)]; 
+waypoint1=xb(:,nbDatab/2)'+[0 0 -3];
+
+obs1_path=[repmat(waypoint1(1),200,1)  [linspace(-10,0,125)  linspace(0.03,10,75)]'  repmat(waypoint1(1),200,1)]; 
 
 %C curve - static case 
-waypoint1=xb(:,nbDatab/2)'+[0 1 -3];
-obs1_path=repmat(waypoint1,200,1);
+% waypoint1=xb(:,nbDatab/2)'+[0 1 -3];
+% obs1_path=repmat(waypoint1,200,1);
 
 
 %%
@@ -167,12 +167,13 @@ q_fin=qs(end,:);
 
 [q_DMP,qdot_DMP]=DMP_repro(nbDatal,nbVarl,alphal,dt,nbStatesl,Kl,Dl ,wq,Muq,Sigmaq,1,qs(1,:)',qs(1,:)',qs(end,:)',0);
 
-
+%%
 figure()
 title('link motion')
+axis([-10 10 -10 10 -10 10])
 plot3(xl_repro(1,:),xl_repro(2,:),xl_repro(3,:),'k')
 hold on
-arms_flat0{end}.plot(qin(qs),'jointdiam',0.25,'jointcolor',[0.5 0.5 1],'tilesize',5,'nobase','noname','nowrist')
+arms_flat0{end}.plot(qin(qs),'notiles','nojoints','nobase','noname','nowrist','workspace',[-10 10 -10 10 -10 10])
 %%
 sim_with_no_dynamics
 
@@ -206,9 +207,9 @@ x0dots=interp1(output1(:,end)/t_scale,x0_x0dot.Data(:,4:6),1:nbDatab);
 
 %%
 figure()
-t_last=120;
+t_last=140;
 pot_length=5;
-axs=[-50 50 -50 50 -25 25]*0.75;
+axs=[-50 50 -50 50 -25 25]*0.55;
 for t=1:nbDatab
 %     plot3(xb_repro(1,:),xb_repro(2,:),xb_repro(3,:))
     plot3(xyz(1:t,1),xyz(1:t,2),xyz(1:t,3),'k')
@@ -217,7 +218,7 @@ for t=1:nbDatab
     obs1=obs1_path(t,:)';
     R=double(SE3(eye(3),xyz(t,:)))*rpy2tr(rpy(t,1),rpy(t,2),rpy(t,3));
     hold on
-    draw_drone(R,4,2,3)
+%     draw_drone(R,4,2,3)
        
     x0=x0s(t,:);
     x0dot=x0dots(t,:);
@@ -244,16 +245,12 @@ for t=1:nbDatab
 
     
     
+% 
+%     [arms,arms_flat]=Make_arm(LinkLength,R);
 
-    [arms,arms_flat]=Make_arm(LinkLength,R);
-    
-
-%     arms_flat{end}.plot(qin([0 q(t,2:5)]),'nojoints','tilesize',10,'nobase','noname',...
-%    'workspace',axs,'nowrist','fps',100,'linkcolor','k','view',[-70 40],'workspace',[-50 50 -50 50 -25 25])    
 %     
-    
-    arms_flat{end}.plot(qin([0 q(t,2:5)]),'nojoints','notiles','nobase','noname',...
-   'workspace',axs,'nowrist','fps',100,'linkcolor','k','view',[-70 40],'workspace',axs)    
+%     arms_flat{end}.plot(qin([0 q(t,2:5)]),'nojoints','notiles','nobase','noname',...
+%    'workspace',axs,'nowrist','fps',100,'linkcolor','k','view',[110 40],'workspace',axs)    
     
 
 
@@ -262,6 +259,17 @@ for t=1:nbDatab
 end
 
 
+
+
+
+
+%%
+
+
+
+
+
+%%
 
 % 
 % 
